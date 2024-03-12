@@ -4,6 +4,7 @@ from scipy.special import lpmv,lpmn
 from tqdm import tqdm
 import matplotlib
 
+# coordinate transformation
 def cart2sphe(x,y,z):
     # return r, theta, phi
     # theta is the angle with the z-axis (co-latitude)
@@ -18,6 +19,7 @@ def sphe2cart_vec(dr,dtheta,dphi,r,theta,phi):
     dz=dr*np.cos(theta)-dtheta*np.sin(theta)
     return (dx,dy,dz)
 
+# calculate vector magnetic field based on pfss model
 def pfss_vec(r,theta,phi,alpha_lm,r_s,lmax=0):
     # r in the unit of stellar radius, theta and phi in the unit of radian
     # r, theta, phi should be in the same shape
@@ -42,6 +44,7 @@ def pfss_vec(r,theta,phi,alpha_lm,r_s,lmax=0):
             bphi+=np.real(-c_lm*alpha_lm[l,m]*p_lm/np.sin(theta)*1j*m*gl*r**(-l-2)*np.exp(1j*m*phi))
     return (br,btheta,bphi)
 
+# calculate the magnetic scale height
 def pfss_lb(r,theta,phi,alpha_lm,r_s,lmax=0):
     br,btheta,bphi=pfss_vec(r,theta,phi,alpha_lm,r_s,lmax)
     babs=np.sqrt(br**2+btheta**2+bphi**2)
@@ -55,6 +58,7 @@ def pfss_lb(r,theta,phi,alpha_lm,r_s,lmax=0):
     babs2=np.sqrt(br2**2+btheta2**2+bphi2**2)
     return np.abs(babs/((babs2-babs1)/(2*ds)))
 
+# spherical harmonics decomposition
 def br2alpha_lm(theta,phi,br,lmax=50):
     alpha_lm=np.zeros([lmax,lmax],dtype=np.complex_)
     do_lm=np.abs(np.diff(phi,axis=0)[:,1:]*np.diff(theta,axis=1)[1:,:])
@@ -70,6 +74,7 @@ def br2alpha_lm(theta,phi,br,lmax=50):
             alpha_lm[l,m]=c_lm*np.sum(int_lm*do_lm)
     return alpha_lm
 
+# construct sun(star)spot
 def sunspot_br(s,phi,bmax,s0=0,phi0=0,gamma=0,rho=np.pi/6,a=0.56):
     b0=bmax*np.sqrt(2*np.exp(1))/a
     #rho=sep/(2*a)*np.sqrt(2)
@@ -111,29 +116,21 @@ def find_neartime(time0,timelist):
     difflist=np.abs(valuelist-value0)
     return np.where(difflist==np.nanmin(difflist))[0][0]
 
-
+# create customized colormaps
 cmap = plt.cm.RdBu_r  # define the colormap
 cmaplist = [cmap(i) for i in range(cmap.N)]
-
-# create the new map
 cmap1 = matplotlib.colors.LinearSegmentedColormap.from_list(
     'Custom cmap', cmaplist, cmap.N)
-
-# define the bins and normalize
 bounds1 = np.linspace(-900, 900, 16)
 norm1 = matplotlib.colors.BoundaryNorm(bounds1, cmap1.N)
-
 cmap = plt.cm.RdYlBu  # define the colormap
 cmaplist = [cmap(i) for i in range(cmap.N)]
-
-# create the new map
 cmap2 = matplotlib.colors.LinearSegmentedColormap.from_list(
     'Custom cmap', cmaplist, cmap.N)
-
-# define the bins and normalize
 bounds2 = np.linspace(0.035, 0.485, 16)
 norm2 = matplotlib.colors.BoundaryNorm(bounds2, cmap2.N)
 
+# calculate magnetic field propeties and save them
 dat_dir='/Users/jiale/Desktop/projects/PT2021_0019/0319/zdi/'
 suffixlist=['2019a','2019b','2020a','2020b']
 for suffix in suffixlist:
@@ -172,6 +169,7 @@ for suffix in suffixlist:
     np.savez(npz_file,lon0=lon0,colat0=colat0,br=br1,babs=babs1,lb=lb1)
     print(npz_name+' completed')
 
+# visualization
 fig=plt.figure(figsize=(10,6),dpi=400)
 plt.rcParams.update({'font.size': 10})
 ax0=fig.add_axes([0.07,0.6,0.2,0.32],projection='polar')
