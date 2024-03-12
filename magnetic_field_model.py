@@ -130,7 +130,7 @@ cmap2 = matplotlib.colors.LinearSegmentedColormap.from_list(
 bounds2 = np.linspace(0.035, 0.485, 16)
 norm2 = matplotlib.colors.BoundaryNorm(bounds2, cmap2.N)
 
-# calculate magnetic field propeties and save them
+# calculate magnetic field properties and save them
 dat_dir='/Users/jiale/Desktop/projects/PT2021_0019/0319/zdi/'
 suffixlist=['2019a','2019b','2020a','2020b']
 for suffix in suffixlist:
@@ -147,18 +147,15 @@ for suffix in suffixlist:
 
     nlat=180*2
     nlon=360*2
-
     lon0=np.linspace(-np.pi, np.pi, nlon)
     sin_lat0=np.linspace(-1, 1, nlat)
     lat0=np.arcsin(sin_lat0)
     colat0=-lat0+np.pi/2
-
     _,sin_lat0=np.meshgrid(lon0,sin_lat0,indexing='ij')
     lon0, colat0=np.meshgrid(lon0,colat0,indexing='ij')
-
+    
     sz=np.shape(lon0)
     br1=np.zeros(sz)
-
     br1,_,_=pfss_vec(np.ones(sz),colat0,lon0,alpha_lm_zdi,r_s=4)
     br,bphi,btheta=pfss_vec(np.ones(sz)*1.05,colat0,lon0,alpha_lm_zdi,r_s=4)
     babs1=np.sqrt(br**2+btheta**2+bphi**2)
@@ -180,12 +177,10 @@ ax4=fig.add_axes([0.07,0.23,0.2,0.32],projection='polar')
 ax5=fig.add_axes([0.07+0.22,0.23,0.2,0.32],projection='polar')
 ax6=fig.add_axes([0.07+0.44,0.23,0.2,0.32],projection='polar')
 ax7=fig.add_axes([0.07+0.66,0.23,0.2,0.32],projection='polar')
-
 ax8=fig.add_axes([0.09,0.05,0.16,0.15])
 ax9=fig.add_axes([0.09+0.22,0.05,0.16,0.15])
 ax10=fig.add_axes([0.09+0.44,0.05,0.16,0.15])
 ax11=fig.add_axes([0.09+0.66,0.05,0.16,0.15])
-
 ax12=fig.add_axes([0.96,0.6,0.01,0.32])
 ax13=fig.add_axes([0.96,0.23,0.01,0.32])
 
@@ -215,7 +210,6 @@ for i in [0,1,2,3]:
     axlist[i].set_title(suffix)
     #axlist[4*i].text(-0.08,0.95,'a',fontsize=15,weight='bold',transform=ax0.transAxes)
     axlist[i].grid(False)
-    
     if i==0:
         axlist[i].text(-0.2,0.05,'Radial magnetic field', rotation='vertical',fontsize=12,weight='bold',transform=axlist[i].transAxes)
         a01=plt.colorbar(a0,cax=ax12,label='$B_r$ [G]')
@@ -235,7 +229,6 @@ for i in [0,1,2,3]:
     #axlist[i+4].set_title('$L_B$ at $r=1.05\;r_0$')
     #axlist[i+4].text(-0.08,0.95,'b',fontsize=15,weight='bold',transform=ax1.transAxes)
     axlist[i+4].grid(False)
-    
     if i==0:
         axlist[i+4].text(-0.2,0.25,'Scale height', rotation='vertical',fontsize=12,weight='bold',transform=axlist[i+4].transAxes)
         a11=plt.colorbar(a1,cax=ax13,label='$L_B$ $[r_\star]$')
@@ -260,8 +253,6 @@ for i in [0,1,2,3]:
     axlist[i+8].set_xticks([0,0.2,0.4,0.6,0.8])
     if i==0:
         axlist[i+8].text(-0.35,0.1,'Statistics', rotation='vertical',fontsize=12,weight='bold',transform=axlist[i+8].transAxes)
-    #axlist[i+8].set_ylabel('Counts')
-    #axlist[i+8].text(-0.28,0.95,'d',fontsize=15,weight='bold',transform=ax3.transAxes)
 
 fig1 = plt.gcf()
 plt.show()
