@@ -163,6 +163,17 @@ def give_freq(ffbin,freqlist=np.linspace(1000,1000+1023*0.48828125,1024),length=
     num=length//ffbin
     return np.array([np.mean(freqlist[ffbin*i:ffbin*(i+1)]) for i in range(num)])
 
+def find_neartime(time0,timelist):
+    try:
+        value0=time0.mjd
+        valuelist=timelist.mjd
+    except:
+        value0=time0
+        valuelist=timelist
+    difflist=np.abs(valuelist-value0)
+    return np.where(difflist==np.nanmin(difflist))[0][0]
+
+#################################################background subtraction#####################################################
 def trend_remove(dspec,method='fit',index=1,average=1,kernel=1001,output='residual'):
     # remove the long-term background flux variation
     # three methods available
@@ -204,17 +215,8 @@ def trend_remove(dspec,method='fit',index=1,average=1,kernel=1001,output='residu
         return dspec_bkgd
     if output=='both':
         return [dspec_residual,dspec_bkgd]
-    
-def find_neartime(time0,timelist):
-    try:
-        value0=time0.mjd
-        valuelist=timelist.mjd
-    except:
-        value0=time0
-        valuelist=timelist
-    difflist=np.abs(valuelist-value0)
-    return np.where(difflist==np.nanmin(difflist))[0][0]
 
+#####################################################data flagging#####################################################
 def fix_nan_lc(lc,time=[]):
     lc=np.array(lc)
     if np.isnan(lc).any():
@@ -256,6 +258,12 @@ def give_mask_lc(lc,kernel=5,thresh=5):
     return mask
 
 def give_mask(dspec,kernel=5,thresh=5,method='rfi',time=[],freq=[]):
+    #  five modes made available now
+    # "rfi": flag random short-duration RFI signals
+    # "burst":  flag strong radio burst region
+    # "channel":   flag channels that are corrupted by RFIs
+    # "time":   flag specific time indexes
+    # "freq":   flag specific frequency indexes
     sz=np.shape(dspec)
     mask=np.ones(sz)
     if method=='rfi':
@@ -285,6 +293,7 @@ def give_mask(dspec,kernel=5,thresh=5,method='rfi',time=[],freq=[]):
 
 file_dir="/Users/jiale/Desktop/projects/PT2021_0019/0319/"
 
+# read observation data
 filei=39
 filename=file_dir+"AD_leo_arctracking-M01_"+str(filei+1).zfill(4)+".fits"
 file=fits.open(filename)
@@ -306,6 +315,7 @@ V_data=np.concatenate((V_data1,V_data2),axis=0)
 cal_dir=file_dir+"high/"
 noise_T=give_noise_T(cal_dir+'T_noise_W_high_01a.dat',cal_dir+'T_noise_W_high_01b.dat',cal_dir+'freq.dat',filedata[0]['DAT_FREQ'])
 
+# do calibrations
 szdata=np.shape(I_data)
 noise_num=noise_count(file=filei,currlen=szdata[0]*ttbin)
 I_spec=np.zeros(szdata[1])
@@ -344,6 +354,7 @@ Q_data=np.multiply(1/G,Q_data)*1e3
 U_data=np.multiply(1/G,U_data)*1e3
 V_data=np.multiply(1/G,V_data)*1e3
 
+# flag data and subtract background
 ffbin=1
 ttbin2=1
 timelist=give_time(tbin=file[1].header['TBIN'],ttbin=ttbin,ttbin2=ttbin2,length=1024*1024,file=0/16384)-22.99
@@ -359,6 +370,7 @@ I_data_cut=I_data-I_data_bkgd1
 V_data_cut=V_data-V_data_bkgd1
 plot_mask=give_mask(I_data_cut,method='channel',thresh=2)
 
+# produce and save dynamic spectra
 plt.figure(figsize=(10,8),dpi=400)
 plt.rcParams.update({'font.size': 10})
 plt.subplot(3,1,1)
