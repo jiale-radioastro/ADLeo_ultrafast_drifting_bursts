@@ -86,7 +86,7 @@ def concatdata(data,pol):
     # output data dimension time freq  512*1024 1024
     # notice that the raw data is in the format of uint8, better change to int
     # polarization channels are XX YY CR CI, CR=Re{XY*}, CI=Im{XY*}
-    # Stokes parameters are defined as I=XX+YY, Q=XX-YY, U=CR*2, V=CI*(-2)
+    # Stokes parameters are defined as I=XX+YY, Q=XX-YY, U=CR*2, V=CI*2
     # Circular polarization convention from van Straten et al.(2010) positive for LCP
     if pol=="XX":
         return np.int16(np.concatenate(data['data'][:,:,0,:,0]))
@@ -103,7 +103,7 @@ def concatdata(data,pol):
     elif pol=="U":
         return np.int16(np.concatenate(data['data'][:,:,2,:,0]))*2
     elif pol=="V":
-        return np.int16(np.concatenate(data['data'][:,:,3,:,0]))*(-2)
+        return np.int16(np.concatenate(data['data'][:,:,3,:,0]))*2
     
 def give_sp(filedata,ttbin):
     # obtain four Stokes parameters from filedata
