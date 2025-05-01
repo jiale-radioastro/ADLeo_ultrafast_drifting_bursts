@@ -96,6 +96,7 @@ def find_neartime(time0,timelist):
     difflist=np.abs(valuelist-value0)
     return np.where(difflist==np.nanmin(difflist))[0][0]
 
+
 # Spherical harmonic coefficients of the starspot models
 lat_list=[10,70]
 rho_list=[30,15,8]
