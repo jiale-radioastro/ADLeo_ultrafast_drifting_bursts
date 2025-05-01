@@ -4,11 +4,12 @@ import matplotlib
 from PFSS_funcs import *
 
 # Produce Fig. 2 
-dat_dir='/Users/jiale/Desktop/projects/PT2021_0019/0319/zdi/'
-datfile=dat_dir+'outMagCoeff_ADLeo_2019b.dat'
-datstr = np.genfromtxt(datfile,delimiter='\t',dtype=str)
+zdi_dir='/Users/jiale/Desktop/projects/PT2021_0019/0319/zdi/'
+spot_dir='/Users/jiale/Desktop/projects/PT2021_0019/0319/starspot/'
 img_dir='/Users/jiale/Desktop/projects/PT2021_0019/0319/publication_figures/'
 
+datfile=zdi_dir+'outMagCoeff_ADLeo_2019b.dat'
+datstr = np.genfromtxt(datfile,delimiter='\t',dtype=str)
 alpha_lm_zdi=np.zeros([9,9],dtype=np.complex_)
 for linestr in datstr[2:46]:
     tmp=linestr.split(' ')
@@ -41,7 +42,7 @@ rho=8
 bmax=6000
 
 npy_name='alpha_lm'+'_lat'+str(lat)+'_rho'+str(rho)+'_bmax'+str(bmax)+'.npy'
-npy_file='/Users/jiale/Desktop/projects/PT2021_0019/0319/starspot/'+npy_name
+npy_file=spot_dir+npy_name
 alpha_lm=np.load(npy_file)
 alpha_lm_hybrid=alpha_lm.copy()
 alpha_lm_hybrid[:9,:9]+=alpha_lm_zdi
@@ -345,7 +346,6 @@ ax9.set_yticks([1e2,1e5])
 ax9.set_xlabel('$L_B$ [$r_\star$]')
 ax9.text(-0.28,0.95,'J',fontsize=13,weight='bold',transform=ax9.transAxes)
 
-fig1 = plt.gcf()
 plt.show()
-fig1.savefig(img_dir+'figure2.pdf',format='pdf',bbox_inches='tight')
+fig.savefig(img_dir+'figure2.pdf',format='pdf',bbox_inches='tight')
 
