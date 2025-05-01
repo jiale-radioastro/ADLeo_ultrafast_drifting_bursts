@@ -2,8 +2,11 @@ import numpy as np
 from PFSS_funcs import *
 
 # Magnetic field extrapolation from the ZDI map + starspots
-dat_dir='/Users/jiale/Desktop/projects/PT2021_0019/0319/zdi/'
-datfile=dat_dir+'outMagCoeff_ADLeo_2019b.dat'
+
+zdi_dir='/Users/jiale/Desktop/projects/PT2021_0019/0319/zdi/'
+npz_dir='/Users/jiale/Desktop/projects/PT2021_0019/0319/starspot/'
+
+datfile=zdi_dir+'outMagCoeff_ADLeo_2019b.dat'
 datstr = np.genfromtxt(datfile,delimiter='\t',dtype=str)
 alpha_lm_zdi=np.zeros([9,9],dtype=np.complex_)
 for linestr in datstr[2:46]:
@@ -52,6 +55,6 @@ for lat in lat_list:
             lb1=pfss_lb(r1,colat1,lon1,alpha_lm_hybrid,r_s=4)
             
             npz_name='bmap'+'_lat'+str(lat)+'_rho'+str(rho)+'_bmax'+str(bmax)+'.npz'
-            npz_file='/Users/jiale/Desktop/projects/PT2021_0019/0319/starspot/'+npz_name
+            npz_file=npz_dir+npz_name
             np.savez(npz_file,lon0=lon0,colat0=colat0,br=br,lon1=lon1,colat1=colat1,r1=r1,babs1=babs1,lb1=lb1)
             print(npz_name+' completed')
