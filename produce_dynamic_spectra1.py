@@ -85,41 +85,6 @@ I_data_cut=I_data-I_data_bkgd1
 V_data_cut=V_data-V_data_bkgd1
 plot_mask=give_mask(I_data_cut,method='channel',thresh=2)
 
-# Produce Fig. S1
-plt.figure(num=1,figsize=(10,8),dpi=400)
-plt.rcParams.update({'font.size': 10})
-plt.subplot(3,1,1)
-cmap=plt.get_cmap('viridis')
-cmap.set_bad('lightgrey',alpha=0.5)
-a=plt.imshow((I_data_cut*plot_mask).T,aspect='auto',vmin=0,vmax=120,origin='lower',\
-                 extent=[timelist[0],timelist[-1],1000,1500],cmap=cmap)
-plt.xlim([0,33])
-plt.colorbar(a,label='Stokes I: flux density [mJy]',aspect=40,pad=0.02)
-plt.ylabel('Frequency [MHz]')
-plt.text(-3.6,1480,'A',fontsize=13,color='black',weight='bold')
-plt.subplot(3,1,2)
-cmap=plt.get_cmap('viridis_r')
-cmap.set_bad('lightgrey',alpha=0.5)
-a=plt.imshow((V_data_cut*plot_mask).T,aspect='auto',vmin=-120,vmax=0,origin='lower',\
-                 extent=[timelist[0],timelist[-1],1000,1500],cmap=cmap)
-plt.xlim([0,33])
-plt.colorbar(a,label='Stokes V: flux density [mJy]',aspect=40,pad=0.02)
-plt.ylabel('Frequency [MHz]')
-plt.text(-3.6,1480,'B',fontsize=13,color='black',weight='bold')
-plt.subplot(3,1,3)
-cmap=plt.get_cmap('bwr_r')
-cmap.set_bad('lightgrey',alpha=0.5)
-a=plt.imshow(((V_data_cut/I_data_cut)*plot_mask*100).T,aspect='auto',vmin=-140,vmax=-60,origin='lower',\
-                 extent=[timelist[0],timelist[-1],1000,1500],cmap=cmap)
-plt.xlim([0,33])
-plt.colorbar(a,label='Polarization degree [%]',aspect=40,pad=0.02)
-plt.xlabel('Time [s] since 2022-03-19 15:05:40 UT')
-plt.ylabel('Frequency [MHz]')
-plt.text(-3.6,1480,'C',fontsize=13,color='black',weight='bold')
-fig1 = plt.gcf()
-plt.show()
-fig1.savefig(img_dir+'supfigure1.pdf',format='pdf',bbox_inches='tight')
-
 # Fine structure dynamic spectra
 index_range=[189,194]
 for index in range(index_range[0],index_range[1]):
