@@ -240,9 +240,8 @@ ax3.text(timelist[244*1024//ttbin]-2.7/33,1485,'D',clip_on=False,fontsize=13,wei
 ax3.plot([timelist[244*1024//ttbin]+0.05,timelist[244*1024//ttbin]+0.05+300/(7.5*1e3)],[1400,1100],\
          '--',color=color,linewidth=2.3)
 ax3.text(timelist[244*1024//ttbin]+0.05,1050,'7.5 GHz$\cdot$s$^{-1}$',color=color,fontsize=12)
-fig1 = plt.gcf()
 plt.show()
-fig1.savefig(img_dir+'figure1.pdf',format='pdf',bbox_inches='tight')
+fig.savefig(img_dir+'figure1.pdf',format='pdf',bbox_inches='tight')
 
 
 
