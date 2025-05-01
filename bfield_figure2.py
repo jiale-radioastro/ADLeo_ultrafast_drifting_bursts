@@ -187,6 +187,5 @@ for i in range(4):
     axlist[imgi].set_xticks([1,1.2,1.4,1.6,1.8,2],['1','1.2','1.4','1.6','1.8','2'])
     axlist[imgi].set_xlabel('$r$ [$r_\star$]')
     imgi+=1
-fig1 = plt.gcf()
 plt.show()
-fig1.savefig(img_dir+'figure3.pdf',format='pdf',bbox_inches='tight')
+fig.savefig(img_dir+'figure3.pdf',format='pdf',bbox_inches='tight')
