@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from PFSS_funcs import *
             
-# Magnetic field extrapolation with only the ZDI Map
+# Magnetic field extrapolation from the ZDI Map
 
 dat_dir='/Users/jiale/Desktop/projects/PT2021_0019/0319/zdi/'
 datfile=dat_dir+'outMagCoeff_ADLeo_2019b.dat'
