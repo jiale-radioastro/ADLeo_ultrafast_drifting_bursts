@@ -2,6 +2,9 @@ import numpy as np
 from PFSS_funcs import *
 
 # Spherical harmonic coefficients of the starspot models
+
+npy_dir='/Users/jiale/Desktop/projects/PT2021_0019/0319/starspot/'
+
 lat_list=[10,70]
 rho_list=[30,15,8]
 bmax_list=[3000,6000,9000]
@@ -23,5 +26,5 @@ for lat in lat_list:
             alpha_lm=br2alpha_lm(colat0,lon0,br,lmax=81)
 
             npy_name='alpha_lm'+'_lat'+str(lat)+'_rho'+str(rho)+'_bmax'+str(bmax)+'.npy'
-            npy_file='/Users/jiale/Desktop/projects/PT2021_0019/0319/starspot/'+npy_name
+            npy_file=npy_dir+npy_name
             np.save(npy_file,alpha_lm)
