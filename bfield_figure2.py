@@ -5,6 +5,9 @@ from PFSS_funcs import *
 
 # Produce Fig. 3
 
+img_dir='/Users/jiale/Desktop/projects/PT2021_0019/0319/publication_figures/'
+file_dir='/Users/jiale/Desktop/projects/PT2021_0019/0319/starspot/'
+
 # Create the colormaps
 cmap = plt.cm.RdBu_r
 cmaplist = [cmap(i) for i in range(cmap.N)]
@@ -71,7 +74,7 @@ for rho in rho_list:
         npz_name='bmap'+'_lat'+str(10)+'_nospot'+'.npz'
     else:   
         npz_name='bmap'+'_lat'+str(10)+'_rho'+str(rho)+'_bmax'+str(bmax)+'.npz'
-    npz_file='/Users/jiale/Desktop/projects/PT2021_0019/0319/starspot/'+npz_name
+    npz_file=file_dir+npz_name
     npz_data=np.load(npz_file)
     lon0=npz_data['lon0']
     colat0=npz_data['colat0']
@@ -101,7 +104,7 @@ for rho in rho_list:
         npz_name='bmap'+'_lat'+str(10)+'_nospot'+'.npz'
     else:   
         npz_name='bmap'+'_lat'+str(10)+'_rho'+str(rho)+'_bmax'+str(bmax)+'.npz'
-    npz_file='/Users/jiale/Desktop/projects/PT2021_0019/0319/starspot/'+npz_name
+    npz_file=file_dir+npz_name
     npz_data=np.load(npz_file)
     lon1=npz_data['lon1']
     colat1=npz_data['colat1']
@@ -134,7 +137,7 @@ for rho in rho_list:
         npz_name='bmap'+'_lat'+str(70)+'_nospot'+'.npz'
     else:   
         npz_name='bmap'+'_lat'+str(70)+'_rho'+str(rho)+'_bmax'+str(bmax)+'.npz'
-    npz_file='/Users/jiale/Desktop/projects/PT2021_0019/0319/starspot/'+npz_name
+    npz_file=file_dir+npz_name
     npz_data=np.load(npz_file)
     lon1=npz_data['lon1']
     colat1=npz_data['colat1']
@@ -186,4 +189,4 @@ for i in range(4):
     imgi+=1
 fig1 = plt.gcf()
 plt.show()
-fig1.savefig('/users/jiale/desktop/figure3.pdf',format='pdf',bbox_inches='tight')
+fig1.savefig(img_dir+'figure3.pdf',format='pdf',bbox_inches='tight')
