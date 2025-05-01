@@ -1,13 +1,17 @@
 import numpy as np
 from scipy.special import lpmv,lpmn
-from tqdm import tqdm
 
 def pfss_vec(r,theta,phi,alpha_lm,r_s,lmax=0):
+    # Obtain the magnetic field vector based on PFSS model
     # r: the radial distance, in the unit of stellar radius
     # theta: colatitude, phi: longitude, both in the unit of radian
+    # alpha_lm: spherical harmonic coefficients
+    # r_s: source surface distance, in the unit of stellar radius
+    # lmax: maximum order of spherical harmonics to be calculated
     # r, theta, phi should be in the same shape
-    # alpha_lm should include the factor of 2 when m>0
+    # note that m is calculated from 0 to l
     # output in br,btheta and bphi
+    
     ds=1e-7
     if lmax==0:
         lmax=np.shape(alpha_lm)[0]
@@ -28,6 +32,8 @@ def pfss_vec(r,theta,phi,alpha_lm,r_s,lmax=0):
     return (br,btheta,bphi)
 
 def pfss_lb(r,theta,phi,alpha_lm,r_s,lmax=0):
+    # Calculate magnetic scale height L_B, in the unit of stellar radius
+    
     br,btheta,bphi=pfss_vec(r,theta,phi,alpha_lm,r_s,lmax)
     babs=np.sqrt(br**2+btheta**2+bphi**2)
     ds=1e-7
@@ -41,9 +47,11 @@ def pfss_lb(r,theta,phi,alpha_lm,r_s,lmax=0):
     return np.abs(babs/((babs2-babs1)/(2*ds)))
 
 def br2alpha_lm(theta,phi,br,lmax=50):
+    # Spherical harmonic decomposition from the radial magnetic field
+    
     alpha_lm=np.zeros([lmax,lmax],dtype=np.complex_)
     do_lm=np.abs(np.diff(phi,axis=0)[:,1:]*np.diff(theta,axis=1)[1:,:])
-    for l in tqdm(range(1,lmax)):
+    for l in range(1,lmax):
         for m in range(0,l+1):
             c_lm=np.sqrt((2*l+1)/(4*np.pi)*np.math.factorial(l-m)/np.math.factorial(l+m))
             p_lm=lpmv(m,l,np.cos(theta))
@@ -56,6 +64,16 @@ def br2alpha_lm(theta,phi,br,lmax=50):
     return alpha_lm
 
 def sunspot_br(s,phi,bmax,s0=0,phi0=0,gamma=0,rho=np.pi/6,a=0.56):
+    # A model for a bipolar sunspot region
+    # s: sine of latitude of the grid
+    # phi: longitude of the grid
+    # bmax: maximum magnetic field strength
+    # s0: sine of latitude of the centroid
+    # phi0: longitude of the centroid
+    # gamma: tilt angle with respect to the equator
+    # rho: polarity separation
+    # a: a controlled parameter
+    
     b0=bmax*np.sqrt(2*np.exp(1))/a
     x=np.cos(phi)*np.sqrt(1-s**2)
     y=np.sin(phi)*np.sqrt(1-s**2)
