@@ -7,6 +7,7 @@ from PFSS_funcs import *
 dat_dir='/Users/jiale/Desktop/projects/PT2021_0019/0319/zdi/'
 datfile=dat_dir+'outMagCoeff_ADLeo_2019b.dat'
 datstr = np.genfromtxt(datfile,delimiter='\t',dtype=str)
+img_dir='/Users/jiale/Desktop/projects/PT2021_0019/0319/publication_figures/'
 
 alpha_lm_zdi=np.zeros([9,9],dtype=np.complex_)
 for linestr in datstr[2:46]:
@@ -346,5 +347,5 @@ ax9.text(-0.28,0.95,'J',fontsize=13,weight='bold',transform=ax9.transAxes)
 
 fig1 = plt.gcf()
 plt.show()
-fig1.savefig('/users/jiale/desktop/figure2.pdf',format='pdf',bbox_inches='tight')
+fig1.savefig(img_dir+'figure2.pdf',format='pdf',bbox_inches='tight')
 
