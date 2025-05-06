@@ -1,5 +1,4 @@
 import numpy as np
-from tqdm import tqdm
 from scipy.ndimage import median_filter as medfilt
 from scipy.stats import median_abs_deviation
 
@@ -275,7 +274,7 @@ def give_mask(dspec,kernel=5,thresh=5,method='rfi',time=[],freq=[]):
     sz=np.shape(dspec)
     mask=np.ones(sz)
     if method=='rfi':
-        for freqi in tqdm(range(sz[1])):
+        for freqi in range(sz[1]):
             mask_lc=give_mask_lc(dspec[:,freqi],kernel=kernel,thresh=thresh)
             mask[:,freqi]=mask_lc
     if method=='burst':
