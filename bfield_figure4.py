@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import matplotlib
 from PFSS_funcs import *
 
-# Produce Fig. 3
+# Produce Fig. S8
 file_dir='data/magnetic_field/'
 img_dir='publication_figures/'
 
@@ -37,8 +37,8 @@ cmap2 = matplotlib.colors.LinearSegmentedColormap.from_list(
 bounds2 = np.linspace(0, 0.8, 256)
 norm2 = matplotlib.colors.BoundaryNorm(bounds2, cmap2.N)
 
-rho_list=[0,30,15,8]
-bmax=6000
+rho=8
+bmax_list=[0,3000,6000,9000]
 
 fig=plt.figure(figsize=(7.25,6.5),dpi=400)
 plt.rcParams.update({'font.size': 8})
@@ -65,8 +65,8 @@ axlist=[ax0,ax1,ax2,ax3,ax4,ax5,ax6,ax7,ax8,ax9,ax10,ax11,ax12,ax13,ax14,ax15]
 
 imgi=0
 lbminlist=[]
-for rho in rho_list:
-    if rho==0:
+for bmax in bmax_list:
+    if bmax==0:
         npz_name='bmap'+'_lat'+str(10)+'_nospot'+'.npz'
     else:   
         npz_name='bmap'+'_lat'+str(10)+'_rho'+str(rho)+'_bmax'+str(bmax)+'.npz'
@@ -90,13 +90,13 @@ for rho in rho_list:
         axlist[imgi].text(-0.2,1.1,'A',fontsize=9,weight='bold',transform=axlist[imgi].transAxes)
     else:
         axlist[imgi].set_yticks([])
-        axlist[imgi].set_title('Starspots '+r'$\rho$='+str(rho)+'\N{degree sign}')
+        axlist[imgi].set_title('Starspots '+r'$B_{max}$='+str(bmax/1e3)+' kG')
     imgi+=1
 a00=plt.colorbar(a0,cax=ax00,label='$B_r$ [kG]')
 a00.set_ticks([-5,-0.5,0,0.5,5])
 
-for rho in rho_list:
-    if rho==0:
+for bmax in bmax_list:
+    if bmax==0:
         npz_name='bmap'+'_lat'+str(10)+'_nospot'+'.npz'
     else:   
         npz_name='bmap'+'_lat'+str(10)+'_rho'+str(rho)+'_bmax'+str(bmax)+'.npz'
@@ -121,13 +121,13 @@ for rho in rho_list:
         axlist[imgi].text(-0.2,1.1,'B',fontsize=9,weight='bold',transform=axlist[imgi].transAxes)
     else:
         axlist[imgi].set_yticks([1.2,1.4,1.6,1.8,2],["","","","",""])
-        axlist[imgi].set_title('Lat.=10\N{degree sign}, '+r'$\rho$='+str(rho)+'\N{degree sign}')
+        axlist[imgi].set_title('Lat.=10\N{degree sign}, '+r'$B_{max}$='+str(bmax/1e3)+' kG')
     imgi+=1
 a01=plt.colorbar(a0,cax=ax40,label='$L_B$ [$r_\star$]')
 a01.set_ticks([0,0.2,0.4,0.6])
     
-for rho in rho_list:
-    if rho==0:
+for bmax in bmax_list:
+    if bmax==0:
         npz_name='bmap'+'_lat'+str(70)+'_nospot'+'.npz'
     else:   
         npz_name='bmap'+'_lat'+str(70)+'_rho'+str(rho)+'_bmax'+str(bmax)+'.npz'
@@ -152,7 +152,7 @@ for rho in rho_list:
         axlist[imgi].text(-0.2,1.1,'C',fontsize=9,weight='bold',transform=axlist[imgi].transAxes)
     else:
         axlist[imgi].set_yticks([1.2,1.4,1.6,1.8,2],["","","","",""])
-        axlist[imgi].set_title('Lat.=70\N{degree sign}, '+r'$\rho$='+str(rho)+'\N{degree sign}')
+        axlist[imgi].set_title('Lat.=10\N{degree sign}, '+r'$B_{max}$='+str(bmax/1e3)+' kG')
     axlist[imgi].set_xlabel('Longitude [\N{degree sign}]')
     imgi+=1
 a02=plt.colorbar(a1,cax=ax80,label='$L_B$ [$r_\star$]')
@@ -179,4 +179,4 @@ for i in range(4):
     axlist[imgi].set_xticks([1,1.2,1.4,1.6,1.8,2],['1','1.2','1.4','1.6','1.8','2'])
     axlist[imgi].set_xlabel('$r$ [$r_\star$]')
     imgi+=1
-fig.savefig(img_dir+'figure3.pdf',format='pdf',bbox_inches='tight')
+fig.savefig(img_dir+'sfigure8.pdf',format='pdf',bbox_inches='tight')
