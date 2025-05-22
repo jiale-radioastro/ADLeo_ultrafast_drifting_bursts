@@ -3,7 +3,9 @@
 The codes used in the paper "Starspots as the origin of ultrafast drifting radio bursts from an active M dwarf" for data reduction, simulations, and visualizations are available here. They include:
 
 Example scripts for reducing FAST telescope data
+
 Example scripts for magnetic field extrapolations using the PFSS model
+
 Example scripts for visualizations
 
 
