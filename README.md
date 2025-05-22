@@ -4,7 +4,7 @@ The codes used in the paper "Starspots as the origin of ultrafast drifting radio
 
 Example scripts for reducing FAST telescope data
 
-Example scripts for magnetic field extrapolations using the PFSS model
+Example scripts for magnetic field extrapolation using the PFSS model
 
 Example scripts for visualizations
 
