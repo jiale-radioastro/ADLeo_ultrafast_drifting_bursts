@@ -3,7 +3,7 @@ from PFSS_funcs import *
 
 # Spherical harmonic coefficients of the starspot models
 
-npy_dir='/Users/jiale/Desktop/projects/PT2021_0019/0319/starspot/'
+npy_dir='data/magnetic_field/'
 
 lat_list=[10,70]
 rho_list=[30,15,8]

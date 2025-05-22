@@ -1,8 +1,8 @@
 import numpy as np
-import matplotlib.pyplot as plt
 from PFSS_funcs import *
             
 # Magnetic field extrapolation from the ZDI Map
+# Coefficients of the ZDI map could be found in Bellotti et al. A&A 676, A56 (2023)
 
 
 file_dir='data/magnetic_field/'
