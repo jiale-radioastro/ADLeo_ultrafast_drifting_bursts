@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from FAST_reduction_funcs import *
 
 
-# Produce Fig. S5
+# Produce Fig. S3
 
 file_dir="/Volumes/jiale_disk1/projects/PT2021_0019/20220319/"
 img_dir='publication_figures/'
@@ -108,4 +108,4 @@ for i in range(19):
     a=ax.imshow((V_dspec*plot_mask).T,origin='lower',aspect='auto',cmap='viridis_r',vmin=-30,vmax=30,\
               extent=[timelist[0],timelist[-1],1000,1500])
     ax.set_xlim([0,50])
-fig.savefig(img_dir+'sfigure5.pdf',format='pdf',bbox_inches='tight')
+fig.savefig(img_dir+'sfigure3.pdf',format='pdf',bbox_inches='tight')

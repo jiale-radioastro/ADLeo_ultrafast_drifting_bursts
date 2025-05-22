@@ -29,7 +29,7 @@ def gaussian(x, A, mu, sigma):
 sav_dir='data/FAST/'
 img_dir='publication_figures/'
 
-# Produce Fig. S1
+# Produce Fig. 4
 fig, ax=plt.subplots(2,3,figsize=(7.25,5),dpi=400,gridspec_kw={'height_ratios':[3,2],'hspace':0.45,'wspace':0.08})
 plt.rcParams.update({'font.size': 8})
 plt.set_cmap('Greys')
@@ -166,4 +166,4 @@ ax12.text(0.02,0.9,'F',fontsize=9,color='black',weight='bold')
 ax02.plot([-400,400],[-400*mu_fit/1e3,400*mu_fit/1e3],'--',color='red',alpha=0.8)
 ax02.text(-60,-0.06,'Drift rate:\n'+'{:.1f}'.format(1/mu_fit)+'$\pm$'+'{:.1f}'.format(1/mu_fit**2*mu_err)+\
           ' GHz$\cdot$s$^{-1}$')
-fig.savefig(img_dir+'sfigure1.pdf',format='pdf',bbox_inches='tight')
+fig.savefig(img_dir+'figure4.pdf',format='pdf',bbox_inches='tight')

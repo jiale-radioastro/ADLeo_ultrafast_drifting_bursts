@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import matplotlib
 from PFSS_funcs import *
 
-# Produce Fig. S7 
+# Produce Fig. S5 
 file_dir='data/magnetic_field/'
 img_dir='publication_figures/'
 
@@ -178,4 +178,4 @@ for i in [0,1,2,3]:
     axlist[i+16].set_xlabel('$L_B$ [$r_\star$]')
     axlist[i+16].set_xticks([0,0.2,0.4,0.6,0.8])
 
-fig.savefig(img_dir+'sfigure7.pdf',format='pdf',bbox_inches='tight')
+fig.savefig(img_dir+'sfigure5.pdf',format='pdf',bbox_inches='tight')

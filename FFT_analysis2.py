@@ -155,7 +155,7 @@ tlist=np.array(tlist)
 npz_name='drift_rate.npz'
 np.savez(sav_file+npz_name,driftlist=driftlist,errlist=errlist,tlist=tlist)
 
-# Produce Fig. S2
+# Produce Fig. 5
 fig=plt.figure(figsize=(3.55,2.5),dpi=400)
 plt.rcParams.update({'font.size': 8})
 plt.errorbar(tlist,driftlist,yerr=errlist,fmt='o',color='blue',linewidth=1,markersize=3)
@@ -168,4 +168,4 @@ plt.text(tlist[17]-0.4,1.5,'D',fontsize=9)
 plt.ylabel('Drift rate [GHz$\cdot$s$^{-1}$]')
 plt.ylim([0,20])
 plt.xlabel('Time [s] since 2022-03-19 15:05:40 UT')
-fig.savefig(img_dir+'sfigure2.pdf',format='pdf',bbox_inches='tight')
+fig.savefig(img_dir+'figure5.pdf',format='pdf',bbox_inches='tight')

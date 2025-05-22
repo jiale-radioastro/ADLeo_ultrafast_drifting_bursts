@@ -14,7 +14,7 @@ timelist=npz_data['timelist']
 freqlist=npz_data['freqlist']
 ttbin=32
 
-# Produce Fig. S3
+# Produce Fig. S1
 fig1=plt.figure(num=1,figsize=(5.6,5),dpi=400)
 plt.rcParams.update({'font.size': 8})
 plt.subplot(3,1,1)
@@ -46,9 +46,9 @@ plt.xlabel('Time [s] since 2022-03-19 15:05:40 UT')
 plt.ylabel('Frequency [MHz]')
 plt.text(-5,1480,'C',fontsize=9,color='black',weight='bold')
 plt.subplots_adjust(hspace=0.25)
-fig1.savefig(img_dir+'sfigure3.pdf',format='pdf',bbox_inches='tight')
+fig1.savefig(img_dir+'sfigure1.pdf',format='pdf',bbox_inches='tight')
 
-# Produce Fig. S4
+# Produce Fig. S2
 
 fig2=plt.figure(figsize=(3.55,7),dpi=400)
 
@@ -101,4 +101,4 @@ plt.xlim([200,-200])
 plt.text(260,1e5,'C',fontsize=9,color='black',weight='bold')
 
 plt.subplots_adjust(hspace=0.42)
-fig2.savefig(img_dir+'sfigure4.pdf',format='pdf',bbox_inches='tight')
+fig2.savefig(img_dir+'sfigure2.pdf',format='pdf',bbox_inches='tight')
